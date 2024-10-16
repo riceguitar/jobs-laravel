@@ -2,42 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 
+$jobs = [
+    [
+        'id' => 1,
+        'title' => 'Chief of Mops',
+        'salary' => '$400'
+    ],
+    [
+        'id' => 2,
+        'title' => 'Vice President',
+        'salary' => '$300'
+    ]
+];
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/jobs', function () {
-    return view('jobs', [
-        'jobs' => [
-            [
-                'id' => 1,
-                'title' => 'Chief of Mops',
-                'salary' => '$400'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Vice President',
-                'salary' => '$300'
-            ]
+Route::get('/jobs', function () use ($jobs) {
 
-        ]
+    return view('jobs', [
+        'jobs' => $jobs
     ]);
+
 });
 
-Route::get('/job/{id}', function ($id) {
-    // Assuming the jobs array is defined somewhere in your code
-    $jobs = [
-        [
-            'id' => 1,
-            'title' => 'Chief of Mops',
-            'salary' => '$400'
-        ],
-        [
-            'id' => 2,
-            'title' => 'Vice President',
-            'salary' => '$300'
-        ]
-    ];
+Route::get('/job/{id}', function ($id) use ($jobs) {
 
     // Find the job based on the ID
     $job = Arr::get($jobs, $id);
